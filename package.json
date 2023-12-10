@@ -1,0 +1,44 @@
+{
+  "name": "@brynjolf/commands",
+  "version": "0.0.1",
+  "description": "A clean, easy, and agnostic Discord slash command handler.",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "test": "node ./test/test.js",
+    "deploy": "npm publish --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cannicide/brynjolf-commands.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "slash",
+    "handler",
+    "command",
+    "commands",
+    "discord.js",
+    "djs",
+    "cannicide"
+  ],
+  "author": "Cannicide",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/Cannicide/brynjolf-commands/issues"
+  },
+  "homepage": "https://github.com/Cannicide/brynjolf-commands#readme",
+  "dependencies": {
+    "discord-api-types": "^0.37.66"
+  },
+  "devDependencies": {
+    "dotenv": "^16.3.1",
+    "typescript": "^5.3.3"
+  },
+  "files": [
+    "/lib"
+  ]
+}
