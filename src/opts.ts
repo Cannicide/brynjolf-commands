@@ -3,21 +3,23 @@ import { ApplicationCommandOptionType, ChannelType, LocalizationMap } from "disc
 interface ResultOptions {
     name?: string;
     description?: string;
-    choices?: any[];
+    choices?: {[choice: string]: any}[];
     max_value?: number;
     min_value?: number;
     required?: boolean;
     type: ApplicationCommandOptionType;
+    _brynjolf_type: string;
     name_localizations?: LocalizationMap;
     description_localizations?: LocalizationMap;
     max_length?: number;
     min_length?: number;
     channel_types?: ChannelType[];
+    options?: ResultOptions[];
 }
 
 interface BaseOptions {
-    name?: string;
-    desc?: string;
+    name: string;
+    desc: string;
     localName?: LocalizationMap;
     localDesc?: LocalizationMap;
 }
@@ -28,7 +30,7 @@ interface ChannelOptions extends BaseOptions {
 
 interface LengthOptions extends BaseOptions {
     range?: [number?, number?];
-    choices?: any[];
+    choices?: string[]|number[];
 }
 
 class BrynjolfArgumentTranslator {
@@ -38,7 +40,8 @@ class BrynjolfArgumentTranslator {
 
     constructor(type: ApplicationCommandOptionType, opts: BaseOptions|ChannelOptions|LengthOptions) {
         this.data = {
-            type
+            type,
+            _brynjolf_type: ApplicationCommandOptionType[type]
         };
 
         this.opts = opts;
@@ -46,7 +49,9 @@ class BrynjolfArgumentTranslator {
 
     public name(name?: string) { this.data.name ??= name; }
     public desc(desc?: string) { this.data.description ??= desc; }
-    public choices(choices?: any[]) { this.data.choices ??= choices; }
+    public choices(choices?: string[]|number[]) { 
+        this.data.choices ??= choices?.map(c => ({name: c.toString(), value: c}));
+    }
     public range(range?: [number?, number?]) {
         if (!this.isLength(this.opts)) return;
 
@@ -65,6 +70,11 @@ class BrynjolfArgumentTranslator {
     public localName(names?: LocalizationMap) { this.data.name_localizations ??= names; }
     public localDesc(descs?: LocalizationMap) { this.data.description_localizations ??= descs; }
     public channelTypes(types?: Array<keyof typeof ChannelType>) { this.data.channel_types ??= types?.map(key => ChannelType[key]); }
+    public suboptions(options?: BrynjolfArgumentTranslator[]) { this.data.options ??= options?.map(opt => opt._translate()); }
+    
+    public get(property: string): any {
+        return this.data[property as keyof ResultOptions];
+    }
 
     private isChannel(x: BaseOptions|ChannelOptions|LengthOptions): x is ChannelOptions {
         return "channelTypes" in x;
@@ -146,4 +156,4 @@ const BrynjolfOptions = {
 };
 
 export default BrynjolfOptions;
-export { BaseOptions, LengthOptions, ChannelOptions, BrynjolfArgumentTranslator };
+export { BaseOptions, LengthOptions, ChannelOptions, ResultOptions, BrynjolfArgumentTranslator };
