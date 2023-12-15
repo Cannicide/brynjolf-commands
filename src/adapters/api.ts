@@ -1,0 +1,17 @@
+import { APIApplicationCommand } from "discord-api-types/v10";
+import { BaseExecutor } from "./base.js";
+
+// API adapter
+class APIExecutor extends BaseExecutor {
+
+    constructor(commandLike: any) {
+        super(commandLike);
+    }
+
+    public override execute(callback: (interaction: APIApplicationCommand) => any) {
+        super.execute(callback);
+    }
+
+}
+
+export { APIExecutor };

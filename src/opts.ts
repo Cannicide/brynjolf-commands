@@ -47,6 +47,10 @@ class BrynjolfArgumentTranslator {
         this.opts = opts;
     }
 
+    public clone() {
+        return new BrynjolfArgumentTranslator(this.data.type, this.opts);
+    }
+
     public name(name?: string) { this.data.name ??= name; }
     public desc(desc?: string) { this.data.description ??= desc; }
     public choices(choices?: string[]|number[]) { 
@@ -73,7 +77,7 @@ class BrynjolfArgumentTranslator {
     public suboptions(options?: BrynjolfArgumentTranslator[]) { this.data.options ??= options?.map(opt => opt._translate()); }
     
     public get(property: string): any {
-        return this.data[property as keyof ResultOptions];
+        return this.opts[property as keyof (BaseOptions|ChannelOptions|LengthOptions)];
     }
 
     private isChannel(x: BaseOptions|ChannelOptions|LengthOptions): x is ChannelOptions {
@@ -101,6 +105,7 @@ class BrynjolfArgumentTranslator {
             this.choices(this.opts.choices);
             this.range(this.opts.range);
         }
+        // TODO: support required as 'req'
 
         return this.data;
     }

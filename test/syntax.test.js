@@ -53,6 +53,15 @@ test("Subcommand has correct args.", () => {
     expect(sc.options[1]?.name).toBe(testarg2.get("name"));
 });
 
+const output4 = parse`${testsc} ${testsc} ${testsc} <${testarg1}>`;
+
+test("Coalescing duplicate subcommands in single syntax.", () => {
+    const sc = output4[0];
+
+    expect(output4.length).toBe(1);
+    expect(sc.options?.length).toBe(1);
+});
+
 // ==== Test subgroups ====
 
 let testsg = opts.subgroup({
@@ -86,6 +95,15 @@ test("Subgroup has correct subcommands and args.", () => {
     expect(sc.options).toBeTruthy();
     expect(sc.options.length).toBe(1);
     expect(sc.options[0]?.name).toBe(testarg1.get("name"));
+});
+
+const output5 = parse`${testsg} ${testsg} ${testsg} ${testsc}`;
+
+test("Coalescing duplicate subgroupss in single syntax.", () => {
+    const sg = output5[0];
+
+    expect(output5.length).toBe(1);
+    expect(sg.options?.length).toBe(1);
 });
 
 // ==== Test arguments ====
