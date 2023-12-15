@@ -1,5 +1,6 @@
 
 import commands from "../manager.js";
+import fs from "node:fs";
 
 // Base adapter
 class BaseExecutor {
@@ -16,7 +17,11 @@ class BaseExecutor {
         commands.set(this.command._opts.name, this.command);
     }
 
-    // TODO: method to log command to JSON file
+    public log(path: string) {
+        path = path.replace("{name}", this.command._opts.name);
+        fs.writeFileSync(path, JSON.stringify(this.command._opts, null, "\t"));
+        return this;
+    }
 
     public execute(callback: (interaction: any) => any) {
         this._register();

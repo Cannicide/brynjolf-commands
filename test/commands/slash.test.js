@@ -33,8 +33,6 @@ test("Command creation.", () => {
     .args`<${arg1}> [${arg2}]`
     .perms.dms(true);
 
-    testUtils.logCommand(cmd1);
-
     /* @ts-ignore */
     expect(cmd1._opts.options[0]).toMatchObject({
         _brynjolf_type: "String",
@@ -56,6 +54,7 @@ test("Command creation.", () => {
     // Test command execution
 
     cmd1.adapter(Adapter.DJS)
+    .log(`./test/commands/logs/{name}.slash.json`)
     .execute(i => {
         return true;
     });
@@ -298,6 +297,9 @@ test("Command registration.", async () => {
 
     const token = fs.readFileSync("./test/commands/.env.local").toString("utf8").slice(6);
     commands.setToken(token, "818608310030041128", "668485643487412234");
+
+    const TEST_REGISTRATION = false; // Added to prevent excessive Discord API calls during repeated testing
+    if (!TEST_REGISTRATION) return;
 
     const noErrors = await commands.registerAll();
     expect(noErrors).toBe(true);
