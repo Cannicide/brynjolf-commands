@@ -11,8 +11,6 @@ class BaseExecutor {
         this.command = commandLike;
     }
 
-    // TODO: autocomplete
-
     protected _register() {
         commands.set(this.command._opts.name, this.command);
     }

@@ -5,7 +5,7 @@ import { BrynjolfArgumentTranslator, ResultOptions } from "./opts.js";
 // Handle syntax such as:
 // `${subcommand} <${arg1}> [${arg2}]`
 
-export default function parse(strings: TemplateStringsArray, ...values: BrynjolfArgumentTranslator[]): ResultOptions[] {
+export default function parse(strings: TemplateStringsArray|string[], ...values: BrynjolfArgumentTranslator[]): ResultOptions[] {
     const args: ResultOptions[] = [];
     let addToSubgroup = false;
     let addToSubcommand = false;

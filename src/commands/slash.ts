@@ -61,7 +61,7 @@ class BrynjolfCommand {
         this.perms = new BrynjolfCommandPermissions(this, (k: "dm_permission"|"default_member_permissions", v) => Object.defineProperty(this._opts, k, { value: v }));
     }
 
-    public args(argStrings: TemplateStringsArray, ...argOptions: BrynjolfArgumentTranslator[]) {
+    public args(argStrings: TemplateStringsArray|string[], ...argOptions: BrynjolfArgumentTranslator[]) {
         // Parse new args
         const newArgs = parse(argStrings, ...argOptions);
 
@@ -132,7 +132,16 @@ class BrynjolfCommand {
         return this;
     }
 
-    // TODO: add options(...BrynjolfArgumentTranslator) method as alternative to args()
+    public options(...argOptions: BrynjolfArgumentTranslator[]) {
+        const argStrings = argOptions.map(arg => {
+            const type = (Reflect.get(arg, "data") as ResultOptions).type;
+            const isSub = type == ApplicationCommandOptionType.Subcommand || type == ApplicationCommandOptionType.SubcommandGroup;
+
+            return isSub ? "-" : (arg.get("req") ? "<->" : "[-]");
+        }).join(" ").split("-");
+
+        return this.args(argStrings, ...argOptions);
+    }
 
     public localDesc(descs: LocalizationMap) {
         this._opts.description_localizations = descs;

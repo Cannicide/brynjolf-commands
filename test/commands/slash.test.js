@@ -227,6 +227,43 @@ test("Command creation.", () => {
             }
         ]
     });
+
+    // Test with non-string tag version
+
+    const arg3 = opts.string({
+        name: "arg1",
+        desc: "First test argument.",
+        req: true
+    });
+
+    const arg4 = opts.boolean({
+        name: "arg2",
+        desc: "Second test argument.",
+        req: false
+    });
+
+    const cmd8 = new Command("basictwo", "An alternative Brynjolf test command.")
+    .options(arg3, arg4)
+    .perms.dms(true);
+
+    /* @ts-ignore */
+    expect(cmd8._opts.options[0]).toMatchObject({
+        _brynjolf_type: "String",
+        name: "arg1",
+        description: "First test argument.",
+        required: true,
+        type: ApplicationCommandOptionType.String
+    });
+
+    /* @ts-ignore */
+    expect(cmd1._opts.options[1]).toMatchObject({
+        type: ApplicationCommandOptionType.Boolean,
+        _brynjolf_type: "Boolean",
+        name: "arg2",
+        description: "Second test argument.",
+        required: false
+    });
+
 });
 
 // Test command handling

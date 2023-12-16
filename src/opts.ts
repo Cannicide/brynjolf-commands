@@ -15,6 +15,7 @@ interface ResultOptions {
     min_length?: number;
     channel_types?: ChannelType[];
     options?: ResultOptions[];
+    autocomplete?: boolean;
 }
 
 interface BaseOptions {
@@ -22,6 +23,7 @@ interface BaseOptions {
     desc: string;
     localName?: LocalizationMap;
     localDesc?: LocalizationMap;
+    req?: boolean;
 }
 
 interface ChannelOptions extends BaseOptions {
@@ -31,6 +33,7 @@ interface ChannelOptions extends BaseOptions {
 interface LengthOptions extends BaseOptions {
     range?: [number?, number?];
     choices?: string[]|number[];
+    autocomplete?: boolean;
 }
 
 class BrynjolfArgumentTranslator {
@@ -75,8 +78,9 @@ class BrynjolfArgumentTranslator {
     public localDesc(descs?: LocalizationMap) { this.data.description_localizations ??= descs; }
     public channelTypes(types?: Array<keyof typeof ChannelType>) { this.data.channel_types ??= types?.map(key => ChannelType[key]); }
     public suboptions(options?: BrynjolfArgumentTranslator[]) { this.data.options ??= options?.map(opt => opt._translate()); }
+    public autocomplete(enabled?: boolean) { this.data.autocomplete ??= enabled; }
     
-    public get(property: string): any {
+    public get(property: (keyof BaseOptions)|(keyof ChannelOptions)|(keyof LengthOptions)): any {
         return this.opts[property as keyof (BaseOptions|ChannelOptions|LengthOptions)];
     }
 
@@ -96,6 +100,7 @@ class BrynjolfArgumentTranslator {
         this.desc(this.opts.desc);
         this.localName(this.opts.localName);
         this.localDesc(this.opts.localDesc);
+        this.required(this.opts.req);
 
         if (this.isChannel(this.opts)) {
             this.channelTypes(this.opts.channelTypes);
@@ -104,8 +109,8 @@ class BrynjolfArgumentTranslator {
         if (this.isLength(this.opts)) {
             this.choices(this.opts.choices);
             this.range(this.opts.range);
+            this.autocomplete(this.opts.autocomplete);
         }
-        // TODO: support required as 'req'
 
         return this.data;
     }
