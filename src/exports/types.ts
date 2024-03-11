@@ -5,5 +5,7 @@
 
 export type { BrynjolfCommandManager as CommandManager } from "../manager.js";
 export type { SlashCommandOptions, BrynjolfCommandPermissions as CommandPermissions } from "../commands/slash.js";
+export type { default as BaseCommandOptions } from "../commands/base.js";
 export type { APIExecutor, DjsExecutor, RegisterOnlyExecutor, BaseExecutor } from "../adapters/adapters.js";
 export type { BrynjolfArgumentTranslator as ArgumentTranslator, BaseOptions, ChannelOptions, LengthOptions, ResultOptions } from "../opts.js";
+export type { ApplicationCommandOptionType, ApplicationCommandType, APIApplicationCommand } from "discord-api-types/v10";

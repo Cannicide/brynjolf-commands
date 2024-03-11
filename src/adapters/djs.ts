@@ -8,6 +8,9 @@ class DjsExecutor extends BaseExecutor {
         super(commandLike);
     }
 
+    /**
+     * @see Uses [Discord.js ChatInputCommandInteraction](https://discord.js.org/#/docs/discord.js/14.14.1/class/ChatInputCommandInteraction)
+     */
     public override execute(callback: (interaction: ChatInputCommandInteraction) => any) {
         super.execute(callback);
     }
