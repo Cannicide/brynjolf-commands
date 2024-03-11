@@ -20,7 +20,7 @@ Easily create, register, and handle Discord slash commands. This system is libra
 This is a basic example for Discord.js. When using the Discord API or another library, swap `Adapter.DJS` for `Adapter.API`. When you don't need command handling and only need registration, use `Adapter.REGISTER_ONLY` with an empty `execute()` method.
 
 ```js
-import { Command, commands, Adapter } from "@byrnjolf/commands"
+import { Command, commands, Adapter } from "@brynjolf/commands"
 
 // Create command
 new Command("ping", "Returns a pong!")
