@@ -2,7 +2,8 @@ import { ApplicationCommandOptionType, ChannelType, LocalizationMap } from "disc
 
 /**
  * Discord API-compatible object capable of representing 
- * arguments, subcommands, and subgroups. 
+ * arguments, subcommands, and subgroups. This is the output 
+ * of Brynjolf's argument translation.
  */
 interface ResultOptions {
     /** Name of the argument. */
@@ -41,11 +42,20 @@ interface ResultOptions {
     autocomplete?: boolean;
 }
 
+/**
+ * Represents a Brynjolf argument. Contains the base-level 
+ * properties shared by all argument types.
+ */
 interface BaseOptions {
+    /** Name of the argument. */
     name: string;
+    /** Description of the argument. */
     desc: string;
+    /** Map of locales to localized argument names. */
     localName?: LocalizationMap;
+    /** Map of locales to localized argument descriptions. */
     localDesc?: LocalizationMap;
+    /** Whether the argument is required. */
     req?: boolean;
 }
 
@@ -54,7 +64,7 @@ interface ChannelOptions extends BaseOptions {
 }
 
 /**
- * Represents numeric and string arguments that 
+ * Represents numeric and string Brynjolf arguments that 
  * support ranged value limits, choices, and autocompletion.
  */
 interface LengthOptions extends BaseOptions {
