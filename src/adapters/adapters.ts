@@ -18,4 +18,4 @@ const AdapterMap = new Map([
     [BrynjolfAdapter.DJS, DjsExecutor]
 ]);
 
-export { BrynjolfAdapter as Adapter, AdapterMap }
+export { BrynjolfAdapter as Adapter, AdapterMap, APIExecutor, BaseExecutor, DjsExecutor, RegisterOnlyExecutor }

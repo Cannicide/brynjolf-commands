@@ -1,4 +1,4 @@
-# brynjolf-commands
+# Brynjolf Commands
 Easily create, register, and handle Discord slash commands. This system is library-agnostic, allowing you to use nearly the exact same command-handling code for the Discord API as you would for a library such as Discord.js. Built-in support is provided for API interactions and Discord.js interactions via Adapters.
 
 ## Features
