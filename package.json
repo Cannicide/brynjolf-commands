@@ -26,22 +26,22 @@
     "cannicide"
   ],
   "author": "Cannicide",
-  "license": "GPL-2.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Cannicide/brynjolf-commands/issues"
   },
   "homepage": "https://github.com/Cannicide/brynjolf-commands#readme",
   "dependencies": {
     "@discordjs/rest": "^2.2.0",
-    "discord-api-types": "^0.37.66"
+    "discord-api-types": "^0.37.73"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.11",
-    "@types/node": "^20.10.4",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.25",
     "discord.js": "^14.14.1",
-    "dotenv": "^16.3.1",
+    "dotenv": "^16.4.5",
     "jest": "^29.7.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.2"
   },
   "files": [
     "/lib"
