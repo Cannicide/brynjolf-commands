@@ -53,9 +53,16 @@ interface ChannelOptions extends BaseOptions {
     channelTypes?: Array<keyof typeof ChannelType>;
 }
 
+/**
+ * Represents numeric and string arguments that 
+ * support ranged value limits, choices, and autocompletion.
+ */
 interface LengthOptions extends BaseOptions {
+    /** Minimum and maximum argument values/lengths. */
     range?: [number?, number?];
+    /** List of possible argument value choices. */
     choices?: string[]|number[];
+    /** Whether to enable argument autocompletion. */
     autocomplete?: boolean;
 }
 
