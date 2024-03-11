@@ -72,7 +72,7 @@ interface ChannelOptions extends BaseOptions {
  * support ranged value limits, choices, and autocompletion.
  */
 interface LengthOptions extends BaseOptions {
-    /** Minimum and maximum argument values/lengths. */
+    /** Minimum and/or maximum argument values/lengths. */
     range?: [number?, number?];
     /** List of possible argument value choices. */
     choices?: string[]|number[];
@@ -80,9 +80,16 @@ interface LengthOptions extends BaseOptions {
     autocomplete?: boolean;
 }
 
+/**
+ * Translates BaseOptions, ChannelOptions, and LengthOptions 
+ * into API-compatible ResultOptions. You should not need to
+ * use this class directly; use the {@link Members.opts | opts} member instead.
+ */
 class BrynjolfArgumentTranslator {
 
+    /** Internally used to build and store translation result. */
     private data: ResultOptions;
+    /** Internally stores provided argument data. */
     private opts: BaseOptions|ChannelOptions|LengthOptions;
 
     constructor(type: ApplicationCommandOptionType, opts: BaseOptions|ChannelOptions|LengthOptions) {
@@ -94,15 +101,25 @@ class BrynjolfArgumentTranslator {
         this.opts = opts;
     }
 
+    /**
+     * Clones this argument translator.
+     */
     public clone() {
         return new BrynjolfArgumentTranslator(this.data.type, this.opts);
     }
 
+    /** Set the name of the argument. */
     public name(name?: string) { this.data.name ??= name; }
+
+    /** Set the description of the argument. */
     public desc(desc?: string) { this.data.description ??= desc; }
+
+    /** Set the possible values of the argument. */
     public choices(choices?: string[]|number[]) { 
         this.data.choices ??= choices?.map(c => ({name: c.toString(), value: c}));
     }
+
+    /** Set the minimum and/or maximum values/lengths of the argument. */
     public range(range?: [number?, number?]) {
         if (!this.isLength(this.opts)) return;
 
@@ -117,27 +134,42 @@ class BrynjolfArgumentTranslator {
             this.data.max_value ??= max;
         }
     }
+
+    /** Set whether the argument is required. */
     public required(required?: boolean) { this.data.required ??= required; }
+    
+    /** Set the localized names of the argument. */
     public localName(names?: LocalizationMap) { this.data.name_localizations ??= names; }
+    
+    /** Set the localized descriptions of the argument. */
     public localDesc(descs?: LocalizationMap) { this.data.description_localizations ??= descs; }
+    
+    /** Set the channel types supported by the channel argument. */
     public channelTypes(types?: Array<keyof typeof ChannelType>) { this.data.channel_types ??= types?.map(key => ChannelType[key]); }
+    
+    /** Set the subarguments of the subcommand/subgroup. */
     public suboptions(options?: BrynjolfArgumentTranslator[]) { this.data.options ??= options?.map(opt => opt._translate()); }
+    
+    /** Set whether to enable argument autocompletion. */
     public autocomplete(enabled?: boolean) { this.data.autocomplete ??= enabled; }
     
+    /** Get a property value from the argument. */
     public get(property: (keyof BaseOptions)|(keyof ChannelOptions)|(keyof LengthOptions)): any {
         return this.opts[property as keyof (BaseOptions|ChannelOptions|LengthOptions)];
     }
 
+    /** @internal Internally used to identify ChannelOptions. */
     private isChannel(x: BaseOptions|ChannelOptions|LengthOptions): x is ChannelOptions {
         return "channelTypes" in x;
     }
 
+    /** @internal Internally used to identify LengthOptions. */
     private isLength(x: BaseOptions|ChannelOptions|LengthOptions): x is LengthOptions {
         return "range" in x || "choices" in x;
     }
 
     /**
-     * @private
+     * @internal Internally used to translate to ResultOptions.
      */
     public _translate(): ResultOptions {
         this.name(this.opts.name);
