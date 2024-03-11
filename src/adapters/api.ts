@@ -1,7 +1,7 @@
 import { APIApplicationCommand } from "discord-api-types/v10";
 import { BaseExecutor } from "./base.js";
 
-// API adapter
+/** Adapter for handling Discord API command interactions. */
 class APIExecutor extends BaseExecutor {
 
     constructor(commandLike: any) {
