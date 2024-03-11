@@ -59,7 +59,11 @@ interface BaseOptions {
     req?: boolean;
 }
 
+/**
+ * Represents channel Brynjolf arguments.
+ */
 interface ChannelOptions extends BaseOptions {
+    /** List of channel types to allow in argument. */
     channelTypes?: Array<keyof typeof ChannelType>;
 }
 
