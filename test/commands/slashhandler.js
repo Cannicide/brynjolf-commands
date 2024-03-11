@@ -5,12 +5,12 @@ import { Adapter } from "../../lib/adapters/adapters.js";
 import fs from "node:fs";
 import { Client, IntentsBitField } from "discord.js";
 
-const arg1 = opts.integer({
+const arg1 = opts.int({
     name: "min",
     desc: "The lower bound."
 });
 
-const arg2 = opts.integer({
+const arg2 = opts.int({
     name: "max",
     desc: "The upper bound."
 });

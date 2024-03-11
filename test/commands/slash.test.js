@@ -19,12 +19,12 @@ test("Command creation.", () => {
 
     // Test with just basic args
 
-    const arg1 = opts.string({
+    const arg1 = opts.str({
         name: "arg1",
         desc: "First test argument."
     });
 
-    const arg2 = opts.boolean({
+    const arg2 = opts.bool({
         name: "arg2",
         desc: "Second test argument."
     });
@@ -64,7 +64,7 @@ test("Command creation.", () => {
 
     // Test with subcommand args, including subargs
     
-    const sub1 = opts.subcommand({
+    const sub1 = opts.subc({
         name: "sub1",
         desc: "First test subcommand."
     });
@@ -109,7 +109,7 @@ test("Command creation.", () => {
 
     // Test with subgroup args
 
-    const group1 = opts.subgroup({
+    const group1 = opts.subg({
         name: "group1",
         desc: "First test subgroup."
     });
@@ -196,7 +196,7 @@ test("Command creation.", () => {
 
     // Test with duplicated subgroups
 
-    const sub2 = opts.subcommand({ name: "sub2", desc: "Second test subcommand." });
+    const sub2 = opts.subc({ name: "sub2", desc: "Second test subcommand." });
 
     const cmd7 = new Command("dupegroup", "Sixth test command.")
     .args`${group1} ${group1} ${group1} ${sub1}`
@@ -230,13 +230,13 @@ test("Command creation.", () => {
 
     // Test with non-string tag version
 
-    const arg3 = opts.string({
+    const arg3 = opts.str({
         name: "arg1",
         desc: "First test argument.",
         req: true
     });
 
-    const arg4 = opts.boolean({
+    const arg4 = opts.bool({
         name: "arg2",
         desc: "Second test argument.",
         req: false
@@ -269,12 +269,12 @@ test("Command creation.", () => {
 // Test command handling
 
 test("Command handling (simulated interaction).", () => {
-    const arg1 = opts.integer({
+    const arg1 = opts.int({
         name: "min",
         desc: "The lower bound."
     });
 
-    const arg2 = opts.integer({
+    const arg2 = opts.int({
         name: "max",
         desc: "The upper bound."
     });
@@ -311,12 +311,12 @@ test("Command registration.", async () => {
 
     commands.clear();
 
-    const arg1 = opts.integer({
+    const arg1 = opts.int({
         name: "min",
         desc: "The lower bound."
     });
 
-    const arg2 = opts.integer({
+    const arg2 = opts.int({
         name: "max",
         desc: "The upper bound."
     });

@@ -20,18 +20,18 @@ const testUtils = {
 
 // ==== Test subcommands ====
 
-let testsc = opts.subcommand({
+let testsc = opts.subc({
     name: "testsc",
     desc: "Testing subcommand syntax."
 });
 
-let testarg1 = opts.string({
+let testarg1 = opts.str({
     name: "testarg1",
     desc: "First test argument.",
     choices: [42, 69]
 });
 
-let testarg2 = opts.boolean({
+let testarg2 = opts.bool({
     name: "testarg2",
     desc: "Second, optional test argument."
 });
@@ -64,12 +64,12 @@ test("Coalescing duplicate subcommands in single syntax.", () => {
 
 // ==== Test subgroups ====
 
-let testsg = opts.subgroup({
+let testsg = opts.subg({
     name: "testsg",
     desc: "Testing subgroup syntax."
 });
 
-let testsc2 = opts.subcommand({
+let testsc2 = opts.subc({
     name: "testsc",
     desc: "Testing subcommand syntax."
 });
@@ -124,9 +124,9 @@ const baseTestLocalStructure = {
     }
 };
 
-const basetestarg1 = opts.boolean(baseTestStructure);
-const basetestarg2 = opts.boolean(baseTestLocalStructure);
-const basetestarg3 = opts.boolean({ name: "basetestarg", desc: "A fake replica of the first base test arg." })
+const basetestarg1 = opts.bool(baseTestStructure);
+const basetestarg2 = opts.bool(baseTestLocalStructure);
+const basetestarg3 = opts.bool({ name: "basetestarg", desc: "A fake replica of the first base test arg." })
 
 const output3 = parse`<${basetestarg1}> <${basetestarg2}> [${basetestarg3}]`;
 
@@ -152,7 +152,7 @@ const channelTestStructure = {
     channelTypes: ["GuildText"]
 };
 
-const channeltestarg = opts.channel({
+const channeltestarg = opts.chnl({
     name: "channeltestarg",
     desc: "Testing channel arguments.",
     channelTypes: ["GuildText"]
@@ -169,19 +169,19 @@ test("Channel args have correct output.", () => {
     expect(channeltestarg).toMatchObject(fixedStructure);
 });
 
-const numrangetestarg = opts.number({
+const numrangetestarg = opts.num({
     name: "lengthtestarg1",
     desc: "Testing length arguments.",
     range: [1.5, 9],
 })._translate();
 
-const strangetestarg = opts.string({
+const strangetestarg = opts.str({
     name: "lengthtestarg2",
     desc: "Testing length arguments.",
     range: [2, 10]
 })._translate();
 
-const lengthchoicestestarg = opts.integer({
+const lengthchoicestestarg = opts.int({
     name: "lengthtestarg3",
     desc: "Testing length arguments.",
     choices: [1, 5, 9]

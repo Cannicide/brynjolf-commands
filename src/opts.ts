@@ -119,47 +119,80 @@ class BrynjolfArgumentTranslator {
 
 const BrynjolfOptions = {
 
+    /**
+     * File option
+     */
     file(opts: BaseOptions) {
         return new BrynjolfArgumentTranslator(ApplicationCommandOptionType.Attachment, opts);
     },
 
-    boolean(opts: BaseOptions) {
+    /**
+     * Boolean option
+     */
+    bool(opts: BaseOptions) {
         return new BrynjolfArgumentTranslator(ApplicationCommandOptionType.Boolean, opts);
     },
 
-    channel(opts: ChannelOptions) {
+    /**
+     * Channel option
+     */
+    chnl(opts: ChannelOptions) {
         return new BrynjolfArgumentTranslator(ApplicationCommandOptionType.Channel, opts);
     },
 
-    integer(opts: LengthOptions) {
+    /**
+     * Integer option
+     */
+    int(opts: LengthOptions) {
         return new BrynjolfArgumentTranslator(ApplicationCommandOptionType.Integer, opts);
     },
 
-    mention(opts: BaseOptions) {
+    /**
+     * Ping/Mention option
+     */
+    ping(opts: BaseOptions) {
         return new BrynjolfArgumentTranslator(ApplicationCommandOptionType.Mentionable, opts);
     },
 
-    number(opts: LengthOptions) {
+    /**
+     * Number/Float option
+     */
+    num(opts: LengthOptions) {
         return new BrynjolfArgumentTranslator(ApplicationCommandOptionType.Number, opts);
     },
 
+    /**
+     * Role option
+     */
     role(opts: BaseOptions) {
         return new BrynjolfArgumentTranslator(ApplicationCommandOptionType.Role, opts);
     },
 
-    string(opts: LengthOptions) {
+    /**
+     * String option
+     */
+    str(opts: LengthOptions) {
         return new BrynjolfArgumentTranslator(ApplicationCommandOptionType.String, opts);
     },
 
+    /**
+     * User option
+     */
     user(opts: BaseOptions) {
         return new BrynjolfArgumentTranslator(ApplicationCommandOptionType.User, opts);
     },
 
-    subcommand(opts: BaseOptions) {
+    /**
+     * Subcommand option
+     */
+    subc(opts: BaseOptions) {
         return new BrynjolfArgumentTranslator(ApplicationCommandOptionType.Subcommand, opts);
     },
 
-    subgroup(opts: BaseOptions) {
+    /**
+     * Subgroup option
+     */
+    subg(opts: BaseOptions) {
         return new BrynjolfArgumentTranslator(ApplicationCommandOptionType.SubcommandGroup, opts);
     }
 
