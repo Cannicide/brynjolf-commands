@@ -1,5 +1,5 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, LocalizationMap, PermissionFlagsBits } from "discord-api-types/v10";
-import BaseCommandOptions from "./base.js";
+import BaseCommandData from "./base.js";
 import { BrynjolfArgumentTranslator, ResultOptions } from "../opts.js";
 import parse from "../syntax.js";
 import { Adapter, AdapterMap } from "../adapters/adapters.js";
@@ -7,7 +7,7 @@ import { APIExecutor } from "../adapters/api.js";
 import { DjsExecutor } from "../adapters/djs.js";
 import { RegisterOnlyExecutor } from "../adapters/register.js";
 
-interface SlashCommandOptions extends BaseCommandOptions {
+interface SlashCommandData extends BaseCommandData {
     type: ApplicationCommandType.ChatInput;
     options: ResultOptions[];
 }
@@ -45,7 +45,7 @@ class BrynjolfCommandPermissions {
 class BrynjolfCommand {
 
     /** @private */
-    private _opts: SlashCommandOptions;
+    private _opts: SlashCommandData;
     /** @private */
     public _action: Function = () => {};
 
@@ -169,4 +169,4 @@ class BrynjolfCommand {
 }
 
 export default BrynjolfCommand;
-export { SlashCommandOptions, BrynjolfCommandPermissions };
+export { SlashCommandData, BrynjolfCommandPermissions };
