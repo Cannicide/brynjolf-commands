@@ -1,6 +1,6 @@
 import { BaseExecutor } from "./base.js";
 
-// Register-only adapter
+/** Adapter for registering commands without handling them. */
 class RegisterOnlyExecutor extends BaseExecutor {
 
     constructor(commandLike: any) {
@@ -8,7 +8,10 @@ class RegisterOnlyExecutor extends BaseExecutor {
         this._register();
     }
 
-    /** @private */
+    /**
+     * @internal Disabled for RegisterOnlyExecutor
+     * @private
+     */
     public override execute() {};
 
 }
