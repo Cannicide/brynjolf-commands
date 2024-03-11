@@ -1,20 +1,43 @@
 import { ApplicationCommandOptionType, ChannelType, LocalizationMap } from "discord-api-types/v10";
 
+/**
+ * Discord API-compatible object capable of representing 
+ * arguments, subcommands, and subgroups. 
+ */
 interface ResultOptions {
+    /** Name of the argument. */
     name?: string;
+    /** Description of the argument. */
     description?: string;
+    /** Map of possible argument value choices. */
     choices?: {[choice: string]: any}[];
+    /** Maximum numeric argument value. */
     max_value?: number;
+    /** Minimum numeric argument value. */
     min_value?: number;
+    /** Whether the argument is required. */
     required?: boolean;
+    /** The type of argument. */
     type: ApplicationCommandOptionType;
+    /**
+     * The string name of the argument type, 
+     * for internal use.
+     * @private
+    */
     _brynjolf_type: string;
+    /** Map of locales to localized argument names. */
     name_localizations?: LocalizationMap;
+    /** Map of locales to localized argument descriptions. */
     description_localizations?: LocalizationMap;
+    /** Maximum string argument length. */
     max_length?: number;
+    /** Minimum string argument length. */
     min_length?: number;
+    /** Possible types allowed in channel arguments. */
     channel_types?: ChannelType[];
+    /** List of subarguments of the subcommand or subgroup. */
     options?: ResultOptions[];
+    /** Whether to enable argument autocompletion. */
     autocomplete?: boolean;
 }
 
