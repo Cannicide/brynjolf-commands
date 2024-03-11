@@ -1,7 +1,7 @@
 import { BaseExecutor } from "./base.js";
 import type { ChatInputCommandInteraction } from "discord.js";
 
-// Discord.js adapter
+/** Adapter for handling Discord.js command interactions. */
 class DjsExecutor extends BaseExecutor {
 
     constructor(commandLike: any) {
