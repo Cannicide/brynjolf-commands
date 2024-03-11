@@ -1,7 +1,4 @@
-import Command from "../../lib/commands/slash.js";
-import commands from "../../lib/manager.js";
-import opts from "../../lib/opts.js";
-import { Adapter } from "../../lib/adapters/adapters.js";
+import { Command, commands, opts, Adapter } from "../../lib/index";
 import fs from "node:fs";
 import { Client, IntentsBitField } from "discord.js";
 
