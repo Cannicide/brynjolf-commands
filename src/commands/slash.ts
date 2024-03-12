@@ -7,8 +7,11 @@ import { APIExecutor } from "../adapters/api.js";
 import { DjsExecutor } from "../adapters/djs.js";
 import { RegisterOnlyExecutor } from "../adapters/register.js";
 
+/** Discord API-compatible object representing slash commands. */
 interface SlashCommandData extends BaseCommandData {
+    /** Type of the command (chat input, i.e. slash command). */
     type: ApplicationCommandType.ChatInput;
+    /** List of the command's arguments. */
     options: ResultOptions[];
 }
 
