@@ -4,6 +4,7 @@ import type { ChatInputCommandInteraction } from "discord.js";
 /** Adapter for handling Discord.js command interactions. */
 class DjsExecutor extends BaseExecutor {
 
+    /** @internal */
     constructor(commandLike: any) {
         super(commandLike);
     }

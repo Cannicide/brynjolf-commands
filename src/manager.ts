@@ -4,6 +4,7 @@ import { Routes, RESTPutAPIApplicationCommandsResult, RESTPutAPIApplicationGuild
 
 class BrynjolfCommandManager extends Map<string, BrynjolfCommand> {
 
+    /** @internal */
     constructor() {
         super();
     }

@@ -92,6 +92,7 @@ class BrynjolfArgumentTranslator {
     /** Internally stores provided argument data. */
     private opts: BaseOptions|ChannelOptions|LengthOptions;
 
+    /** @internal */
     constructor(type: ApplicationCommandOptionType, opts: BaseOptions|ChannelOptions|LengthOptions) {
         this.data = {
             type,

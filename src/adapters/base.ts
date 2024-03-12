@@ -7,6 +7,7 @@ class BaseExecutor {
     /** Internally stores command data. */
     protected command: any;
 
+    /** @internal */
     constructor(commandLike: any) {
         this.command = commandLike;
     }
