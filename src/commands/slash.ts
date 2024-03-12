@@ -58,15 +58,24 @@ class BrynjolfCommandPermissions {
     }
 }
 
+/** Create, configure, and handle a command. */
 class BrynjolfCommand {
 
-    /** @private */
+    /**
+     * @internal Internally used to store command data.
+     * @private
+     */
     private _opts: SlashCommandData;
-    /** @private */
+    /**
+     * @internal Internally used to store command handler.
+     * @private
+     */
     public _action: Function = () => {};
 
+    /** Permissions of the command. */
     public readonly perms: BrynjolfCommandPermissions;
 
+    /** Create a new Command object. */
     constructor(name: string, description: string) {
         this._opts = {
             name,
@@ -77,6 +86,30 @@ class BrynjolfCommand {
         this.perms = new BrynjolfCommandPermissions(this, (k: "dm_permission"|"default_member_permissions", v) => Object.defineProperty(this._opts, k, { value: v }));
     }
 
+    /**
+     * Add arguments to the command via template syntax. This method
+     * is a template tag, and is used differently than a normal
+     * function. If you want to add arguments via a normal function,
+     * use {@link Members.Command.options | Command#options()} instead.
+     * 
+     * The custom syntax is as follows:
+     * ```js
+     * // With square brackets, you can
+     * // add an optional argument:
+     * command.args`[${arg}]`
+     * 
+     * // With less/greater than signs, you can
+     * // add a required argument:
+     * command.args`<${arg}>`
+     * 
+     * // With nothing surrounding it, you can
+     * // add subcommands and subgroups:
+     * command.args`${subgroup} ${subcommand} <${arg}>`
+     * 
+     * // Add multiple arguments at once:
+     * command.args`<${arg1}> <${arg2}> [${arg3}]`
+     * ```
+     */
     public args(argStrings: TemplateStringsArray|string[], ...argOptions: BrynjolfArgumentTranslator[]) {
         // Parse new args
         const newArgs = parse(argStrings, ...argOptions);
@@ -148,6 +181,24 @@ class BrynjolfCommand {
         return this;
     }
 
+    /**
+     * The non-template equivalent of 
+     * {@link Members.Command.args | Command#args()}. Add arguments
+     * to the command without the terseness of template syntax.
+     * 
+     * The usage is as follows:
+     * ```js
+     * // Add an argument:
+     * command.options(arg)
+     * 
+     * // Add multiple arguments at once:
+     * command.options(subcommand, arg1, arg2)
+     * ```
+     * 
+     * @remarks
+     * Note: this requires arguments created with {@link Members.opts | opts}
+     * to define the `req` property to determine if they are required.
+     */
     public options(...argOptions: BrynjolfArgumentTranslator[]) {
         const argStrings = argOptions.map(arg => {
             const type = (Reflect.get(arg, "data") as ResultOptions).type;
@@ -159,24 +210,35 @@ class BrynjolfCommand {
         return this.args(argStrings, ...argOptions);
     }
 
+    /** Set localized descriptions for the command. */
     public localDesc(descs: LocalizationMap) {
         this._opts.description_localizations = descs;
         return this;
     }
 
+    /** Set localized names for the command. */
     public localName(names: LocalizationMap) {
         this._opts.name_localizations = names;
         return this;
     }
 
+    /**
+     * Set custom properties for the command. Useful for features 
+     * Discord may add in the future that aren't immediately 
+     * given direct support in \@brynjolf/commands.
+     */
     public custom(customProperty: string, value: any) {
         Object.defineProperty(this._opts, customProperty, { value });
         return this;
     }
 
+    /** Select an adapter to handle Discord API interactions. */
     public adapter(adapter: Adapter.API): APIExecutor;
+    /** Select an adapter to handle Discord.js interactions. */
     public adapter(adapter: Adapter.DJS): DjsExecutor;
+    /** Select an adapter that registers without handling. */
     public adapter(adapter: Adapter.REGISTER_ONLY): RegisterOnlyExecutor;
+    /** Select an adapter to determine command handling behavior. */
     public adapter(adapter: Adapter) {
         const Executor = AdapterMap.get(adapter)!;
         return new Executor(this);
