@@ -3,10 +3,13 @@ import { BaseExecutor } from "./base.js";
 import { DjsExecutor } from "./djs.js";
 import { RegisterOnlyExecutor } from "./register.js";
 
-// Adapter enum
+/** Enumeration of adapter types. */
 enum BrynjolfAdapter {
+    /** Adapter for handling Discord API interactions. */
     API = "API",
+    /** Adapter for registering commands without handling them. */
     REGISTER_ONLY = "None",
+    /** Adapter for handling Discord.js interactions. */
     DJS = "Discord.js"
 }
 
