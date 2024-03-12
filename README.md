@@ -6,6 +6,7 @@ Easily create, register, and handle Discord slash commands. This system is libra
 - 🔧 Built-in adapters for Discord API and Discord.js
 - 🪶 Lightweight
 - 🍰 Easy to use
+- 🧩 Fully documented
 - 🪆 No heavily nested object literals
 - 👥 Registration does not require any additional dependencies
 - 🛜 Can register commands with or without handling them

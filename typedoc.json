@@ -1,0 +1,12 @@
+{
+    "entryPoints": ["src/index.ts", "src/exports/types.ts"],
+    "out": "./docs",
+    "plugin": ["typedoc-material-theme"],
+    "themeColor": "#5865F2",
+    "includeVersion": true,
+    "excludeInternal": true,
+    "validation": {
+        "notDocumented": true,
+        "notExported": true
+    }
+}
