@@ -2,6 +2,11 @@ import BrynjolfCommand from "./commands/slash.js";
 import { REST } from "@discordjs/rest";
 import { Routes, RESTPutAPIApplicationCommandsResult, RESTPutAPIApplicationGuildCommandsResult } from "discord-api-types/v10";
 
+/**
+ * Manages command storage, execution, and registration. 
+ * You should not need to use this class directly; use the 
+ * {@link Members.commands | commands} member instead.
+ */
 class BrynjolfCommandManager extends Map<string, BrynjolfCommand> {
 
     /** @internal */
@@ -9,6 +14,15 @@ class BrynjolfCommandManager extends Map<string, BrynjolfCommand> {
         super();
     }
 
+    /**
+     * Executes a command of the given name, if possible. 
+     * The data parameters are passed to the command's 
+     * handler method as parameters.
+     * 
+     * @example
+     * // Common use in Discord.js 'interactionCreate' event:
+     * commands.execute(interaction.commandName, interaction);
+     */
     public execute(commandName: string, ...data: any[]) {
         // Executes the actions of a command, if it exists
         const cmd = this.get(commandName);
@@ -16,6 +30,7 @@ class BrynjolfCommandManager extends Map<string, BrynjolfCommand> {
         cmd._action(...data);
     }
 
+    /** Unregisters the command with the given name. */
     public async unregister(commandName: string) {
         if (!TokenManager.token) {
             console.error("[BrynjolfError] You must provide your Discord bot's token to unregister commands.");
@@ -31,6 +46,7 @@ class BrynjolfCommandManager extends Map<string, BrynjolfCommand> {
         return await this._registerAll(true);
     }
 
+    /** Unregisters all commands associated with this application. */
     public async unregisterAll() {
         if (!TokenManager.token) {
             console.error("[BrynjolfError] You must provide your Discord bot's token to unregister commands.");
@@ -46,6 +62,7 @@ class BrynjolfCommandManager extends Map<string, BrynjolfCommand> {
         return await this._registerAll(true);
     }
 
+    /** Registers all commands created using \@brynjolf/commands. */
     public async registerAll() {
         if (!TokenManager.token) {
             console.error("[BrynjolfError] You must provide your Discord bot's token to register commands.");
@@ -60,6 +77,7 @@ class BrynjolfCommandManager extends Map<string, BrynjolfCommand> {
         return await this._registerAll();
     }
 
+    /** @internal Internally used to handle command REST API requests. */
     private async _registerAll(isUnregister: boolean = false) {
         if (!TokenManager.token || !TokenManager.clientId) return false;
 
@@ -111,6 +129,11 @@ class BrynjolfCommandManager extends Map<string, BrynjolfCommand> {
         return true;
     }
 
+    /**
+     * Sets the token, application ID, and optional guild ID. 
+     * This method must be called before registering or 
+     * unregistering any commands using the {@link Members.commands | command manager}.
+     */
     public setToken(token: string, applicationId: string, devGuildId?: string) {
         TokenManager.setToken(token);
         TokenManager.setClientId(applicationId);
@@ -119,6 +142,7 @@ class BrynjolfCommandManager extends Map<string, BrynjolfCommand> {
 
 }
 
+/** The primary command manager for \@brynjolf/commands. */
 const commands = new BrynjolfCommandManager();
 export default commands;
 

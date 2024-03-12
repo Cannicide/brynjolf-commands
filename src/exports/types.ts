@@ -1,5 +1,5 @@
 /**
- * Typescript types used by the @brynjolf/commands core members.
+ * Typescript types used by the \@brynjolf/commands core members.
  * @module Types
  */
 

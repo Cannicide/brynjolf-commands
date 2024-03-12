@@ -1,5 +1,5 @@
 /**
- * The core of @brynjolf/commands, encompassing everything you'll need to create, register, and handle commands.
+ * The core of \@brynjolf/commands, encompassing everything you'll need to create, register, and handle commands.
  * @module Members
  */
 
