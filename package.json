@@ -8,6 +8,7 @@
   "scripts": {
     "build": "tsc",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "testclient": "node ./test/commands/slashhandler.js",
     "deploy": "npm publish --access public",
     "docgen": "npx typedoc"
   },

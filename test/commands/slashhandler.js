@@ -1,4 +1,4 @@
-import { Command, commands, opts, Adapter } from "../../lib/index";
+import { Command, commands, opts, Adapter } from "../../lib/index.js";
 import fs from "node:fs";
 import { Client, IntentsBitField } from "discord.js";
 
