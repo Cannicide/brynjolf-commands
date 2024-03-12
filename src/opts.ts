@@ -194,6 +194,7 @@ class BrynjolfArgumentTranslator {
 
 }
 
+/** Utility to create arguments (i.e. options) for commands. */
 const BrynjolfOptions = {
 
     /**
