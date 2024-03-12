@@ -12,18 +12,30 @@ interface SlashCommandData extends BaseCommandData {
     options: ResultOptions[];
 }
 
+/** Manage member and DM permissions for the command. */
 class BrynjolfCommandPermissions {
 
-    /** @private */
+    /**
+     * @internal Internally used to modify private variable in command.
+     * @private
+     */
     private _setter: (key: "dm_permission"|"default_member_permissions", value: any) => any;
-    /** @private */
+    /**
+     * @internal Internally stores command.
+     * @private
+     */
     private _cmd: BrynjolfCommand;
 
+    /** @internal */
     constructor(cmd: BrynjolfCommand, setter: (key: "dm_permission"|"default_member_permissions", value: any) => any) {
         this._setter = setter;
         this._cmd = cmd;
     }
 
+    /**
+     * Set member permissions for the command. ALL provided
+     * permissions will be required to use the command.
+     */
     public members(requiredPerms: (keyof typeof PermissionFlagsBits)[]) {
         const firstPerm = requiredPerms.shift();
         if (firstPerm === undefined) return this._cmd;
@@ -36,6 +48,7 @@ class BrynjolfCommandPermissions {
         return this._cmd;
     }
 
+    /** Set whether the command can be used in DMs. */
     public dms(enabled: boolean = true) {
         this._setter("dm_permission", enabled);
         return this._cmd;
