@@ -1,6 +1,7 @@
 import BrynjolfCommand from "./commands/slash.js";
 import { REST } from "@discordjs/rest";
 import { Routes, RESTPutAPIApplicationCommandsResult, RESTPutAPIApplicationGuildCommandsResult } from "discord-api-types/v10";
+import { BrynjolfArgumentTranslator } from "./opts.js";
 
 /**
  * Manages command storage, execution, and registration. 
@@ -28,6 +29,23 @@ class BrynjolfCommandManager extends Map<string, BrynjolfCommand> {
         const cmd = this.get(commandName);
         if (!cmd) return;
         cmd._action(...data);
+    }
+
+    /**
+     * Executes the autocomplete handler of a command and argument 
+     * of the given name. The data parameters are passed to the
+     * argument's autocomplete handler method as parameters.
+     */
+    public autocomplete(commandName: string, argName: string, ...data: any[]) {
+        const cmd = this.get(commandName);
+        if (!cmd) return;
+
+        const opts: BrynjolfArgumentTranslator[] = cmd._translators;
+        const opt = opts.find(opt => opt.get("name") == argName);
+        
+        if (!opt) return;
+        if (!opt.get("autocomplete")) return;
+        opt.get("autocomplete")(...data);
     }
 
     /** Unregisters the command with the given name. */

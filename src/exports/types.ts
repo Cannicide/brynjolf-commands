@@ -9,3 +9,13 @@ export type { default as BaseCommandData } from "../commands/base.js";
 export type { APIExecutor, DjsExecutor, RegisterOnlyExecutor, BaseExecutor } from "../adapters/adapters.js";
 export type { BrynjolfArgumentTranslator as ArgumentTranslator, BaseOptions, ChannelOptions, LengthOptions, ResultOptions } from "../opts.js";
 export type { ApplicationCommandOptionType, ApplicationCommandType, APIApplicationCommand } from "discord-api-types/v10";
+
+/** API-compatible autocomplete suggestion item. */
+interface AutocompleteSuggestion {
+    /** Name of the autocomplete suggestion. */
+    name: string;
+    /** Value of the autocomplete suggestion. */
+    value: string|number;
+}
+
+export type { AutocompleteSuggestion };

@@ -76,8 +76,8 @@ interface LengthOptions extends BaseOptions {
     range?: [number?, number?];
     /** List of possible argument value choices. */
     choices?: string[]|number[];
-    /** Whether to enable argument autocompletion. */
-    autocomplete?: boolean;
+    /** Argument autocompletion handler. */
+    autocomplete?: (data: any) => any;
 }
 
 /**
@@ -166,7 +166,7 @@ class BrynjolfArgumentTranslator {
 
     /** @internal Internally used to identify LengthOptions. */
     private isLength(x: BaseOptions|ChannelOptions|LengthOptions): x is LengthOptions {
-        return "range" in x || "choices" in x;
+        return "range" in x || "choices" in x || "autocomplete" in x;
     }
 
     /**
@@ -186,7 +186,7 @@ class BrynjolfArgumentTranslator {
         if (this.isLength(this.opts)) {
             this.choices(this.opts.choices);
             this.range(this.opts.range);
-            this.autocomplete(this.opts.autocomplete);
+            this.autocomplete(!!this.opts.autocomplete);
         }
 
         return this.data;

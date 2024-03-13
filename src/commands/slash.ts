@@ -71,6 +71,11 @@ class BrynjolfCommand {
      * @private
      */
     public _action: Function = () => {};
+    /**
+     * @internal Internally used to store argument translators.
+     * @private
+     */
+    public _translators: BrynjolfArgumentTranslator[] = [];
 
     /** Permissions of the command. */
     public readonly perms: BrynjolfCommandPermissions;
@@ -111,6 +116,8 @@ class BrynjolfCommand {
      * ```
      */
     public args(argStrings: TemplateStringsArray|string[], ...argOptions: BrynjolfArgumentTranslator[]) {
+        this._translators.push(...argOptions);
+
         // Parse new args
         const newArgs = parse(argStrings, ...argOptions);
 
