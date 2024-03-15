@@ -1,12 +1,25 @@
 {
     "entryPoints": ["src/index.ts", "src/exports/types.ts"],
     "out": "./docs",
-    "plugin": ["typedoc-material-theme"],
-    "themeColor": "#5865F2",
     "includeVersion": true,
     "excludeInternal": true,
+    "sourceLinkExternal": true,
+    "visibilityFilters": {
+        "protected": false,
+        "private": false,
+        "inherited": true,
+        "external": true
+    },
     "validation": {
         "notDocumented": true,
         "notExported": true
-    }
+    },
+    "plugin": [
+        "typedoc-material-theme",
+        "typedoc-plugin-extras"
+    ],
+    // material-theme options:
+    "themeColor": "#5865F2",
+    // plugin-extras options:
+    "favicon": "https://avatars.githubusercontent.com/u/41762964?v=4"
 }

@@ -13,7 +13,7 @@ export { default as utils } from "./utils.js";
 // Export types
 import * as _types from "./exports/types.js";
 /**
- * @internal Marked internal to hide in docs and prevent confusion with members
+ * @hidden Hidden in documentation.
  */
 const types = _types;
 export { types };
