@@ -44,6 +44,6 @@ client.on("interactionCreate", i => {
 ## Docs
 Detailed examples do not exist yet, but will be added soon.
 
-[Primary Features →](modules/Members.html)\
-[Typescript Types →](modules/Types.html)\
+[Primary Features →](https://brynjolf.cannicide.net/docs/commands/0.0.1/modules/Members.html)\
+[Typescript Types →](https://brynjolf.cannicide.net/docs/commands/0.0.1/modules/Types.html)\
 Examples →
